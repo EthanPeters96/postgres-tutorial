@@ -1,5 +1,5 @@
 from sqlalchemy import (
-    create_engine, Column,  Integer, String
+    create_engine, Column, Integer, String
 )
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -24,17 +24,14 @@ class Programmer(base):
 # instead of connecting to the database directly, we will ask for a session
 # create a new instance of sessionmaker, then point to our engine (the db)
 Session = sessionmaker(db)
-
-
 # opens an actual session by calling the Session() subclass defined above
 session = Session()
-
 
 # creating the database using declarative_base subclass
 base.metadata.create_all(db)
 
 
-# creating records on the Programmer table
+# creating records on our Progammer table
 ada_lovelace = Programmer(
     first_name="Ada",
     last_name="Lovelace",
@@ -42,7 +39,6 @@ ada_lovelace = Programmer(
     nationality="British",
     famous_for="First Programmer"
 )
-
 
 alan_turing = Programmer(
     first_name="Alan",
@@ -52,15 +48,13 @@ alan_turing = Programmer(
     famous_for="Modern Computing"
 )
 
-
 grace_hopper = Programmer(
     first_name="Grace",
     last_name="Hopper",
     gender="F",
     nationality="American",
-    famous_for="COBOL Language"
+    famous_for="COBOL language"
 )
-
 
 margaret_hamilton = Programmer(
     first_name="Margaret",
@@ -78,7 +72,6 @@ bill_gates = Programmer(
     famous_for="Microsoft"
 )
 
-
 tim_berners_lee = Programmer(
     first_name="Tim",
     last_name="Berners-Lee",
@@ -87,14 +80,13 @@ tim_berners_lee = Programmer(
     famous_for="World Wide Web"
 )
 
-ethan_peters = Programmer(
-    first_name="Ethan",
-    last_name="Peters",
-    gender="M",
-    nationality="British",
-    famous_for="Python"
+your_name = Programmer(
+    first_name="Your First Name",
+    last_name="Your Last Name",
+    gender="Your Gender",
+    nationality="Your Nationality",
+    famous_for="Celebrate Yourself Here"
 )
-
 
 # add each instance of our programmers to our session
 # session.add(ada_lovelace)
@@ -103,13 +95,15 @@ ethan_peters = Programmer(
 # session.add(margaret_hamilton)
 # session.add(bill_gates)
 # session.add(tim_berners_lee)
-# session.add(ethan_peters)
-
+# session.add(your_name)
 
 
 # updating a single record
-# programmer = session.query(Programmer).filter_by(id=2).first()
+# programmer = session.query(Programmer).filter_by(id=7).first()
 # programmer.famous_for = "World President"
+
+# commit our session to the database
+# session.commit()
 
 
 # updating multiple records
@@ -120,36 +114,36 @@ ethan_peters = Programmer(
 #     elif person.gender == "M":
 #         person.gender = "Male"
 #     else:
-#         person.gender = "Prefer not to say"
+#         print("Gender not defined")
 #     session.commit()
 
 
 # deleting a single record
-fname = input("Enter a first name: ")
-lname = input("Enter a last name: ")
-programmer = session.query(Programmer).filter_by(first_name=fname, last_name=lname).first()
-if programmer is not None:
-    print("Programmer Found: ", programmer.first_name + " " + programmer.last_name)
-    confirmation = input("Are you sure you want to delete this record? (y/n)")
-    if confirmation.lower() == "y":
-        session.delete(programmer)
-        session.commit()
-        print("Programmer has been deleted")
-    else:
-        print("Programmer not deleted")
-else:
-    print("No records found")
+# fname = input("Enter a first name: ")
+# lname = input("Enter a last name: ")
+# programmer = session.query(Programmer).filter_by(first_name=fname, last_name=lname).first()
+# defensive programming
+# if programmer is not None:
+#     print("Programmer Found: ", programmer.first_name + " " + programmer.last_name)
+#     confirmation = input("Are you sure you want to delete this record? (y/n) ")
+#     if confirmation.lower() == "y":
+#         session.delete(programmer)
+#         session.commit()
+#         print("Programmer has been deleted")
+#     else:
+#         print("Programmer not deleted")
+# else:
+#     print("No records found")
 
 
+# delete multiple/all records
+# programmers = session.query(Programmer)
+# for programmer in programmers:
+#     session.delete(programmer)
+#     session.commit()
 
 
-
-
-# commit our session to the database
-# session.commit()
-
-
-# query the database to find all programmers
+# query the database to find all Programmers
 programmers = session.query(Programmer)
 for programmer in programmers:
     print(
